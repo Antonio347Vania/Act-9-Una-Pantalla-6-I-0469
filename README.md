@@ -1,8 +1,8 @@
 # Act-9-Una-Pantalla-6-I-0469
 Web
-<img width="818" height="866" alt="image" src="https://github.com/user-attachments/assets/6dc40eac-2f0c-4ca9-8db2-183a5f9dd596" />
+<img width="817" height="867" alt="image" src="https://github.com/user-attachments/assets/776af859-45c4-4bda-be8b-2babba50d0f3" />
 android
-<img width="456" height="817" alt="image" src="https://github.com/user-attachments/assets/c6f85fa7-4630-4f35-bb09-e970f5d8e745" />
+<img width="463" height="785" alt="image" src="https://github.com/user-attachments/assets/39c3fffb-e563-4df5-85bb-bb809e5d6b10" />
 
 
 A new Flutter project.

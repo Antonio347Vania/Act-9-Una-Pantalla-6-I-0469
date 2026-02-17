@@ -11,7 +11,7 @@ class AppSoriana extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Soriana App',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF5F5F5), // Gris muy claro de fondo
+        scaffoldBackgroundColor: const Color(0xFFF5F5F5),
       ),
       home: const HomePage(),
     );
@@ -28,10 +28,11 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 1,
         leading: const Icon(Icons.menu, color: Colors.black),
-        title: const Text('Soriana', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+        title: const Text('Soriana', 
+          style: TextStyle(color: Color(0xFF2E7D32), fontWeight: FontWeight.bold, fontSize: 24)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.shopping_cart, color: Colors.green),
+            icon: const Icon(Icons.shopping_cart, color: Color(0xFF2E7D32)),
             onPressed: () {},
           ),
         ],
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // 1. BARRA DE BÚSQUEDA (Estilo Naranja como la imagen)
+            // 1. BARRA DE BÚSQUEDA
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Row(
@@ -47,31 +48,32 @@ class HomePage extends StatelessWidget {
                   Expanded(
                     child: Container(
                       height: 45,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          bottomLeft: Radius.circular(5),
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8),
                         ),
                         border: Border.all(color: Colors.grey.shade300),
                       ),
                       child: const TextField(
                         decoration: InputDecoration(
-                          hintText: "Search...",
+                          hintText: "Buscar productos...",
                           border: InputBorder.none,
+                          hintStyle: TextStyle(fontSize: 14),
                         ),
                       ),
                     ),
                   ),
                   Container(
                     height: 45,
-                    width: 50,
+                    width: 55,
                     decoration: const BoxDecoration(
                       color: Colors.orange,
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(5),
-                        bottomRight: Radius.circular(5),
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
                       ),
                     ),
                     child: const Icon(Icons.search, color: Colors.white),
@@ -80,42 +82,73 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            // 2. BANNER PROMOCIONAL
+            // 2. BANNER ACTUALIZADO CON TU TEXTO
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
-              height: 150,
               width: double.infinity,
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.orange.shade100,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  'https://img.freepik.com/vector-premium/banner-supermercado-alimentos-frescos-frutas-verduras_8071-13735.jpg',
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => const Center(child: Text("Ofertas de Hoy")),
+                borderRadius: BorderRadius.circular(15),
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF689F38), Color(0xFF9CCC65)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    "OFERTA ESPECIAL",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, letterSpacing: 2),
+                  ),
+                  const SizedBox(height: 8),
+                  // TEXTO SOLICITADO
+                  const Text(
+                    "Martes y Miércoles de Frutas y Verduras",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Text(
+                      "¡SOLO EN SORIANA!",
+                      style: TextStyle(color: Color(0xFF388E3C), fontWeight: FontWeight.bold, fontSize: 12),
+                    ),
+                  ),
+                ],
               ),
             ),
 
-            // 3. BOTONES DE CATEGORÍA (Horizontal)
-            const SizedBox(height: 20),
+            // 3. BOTONES DE CATEGORÍA
+            const SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildCategoryBtn("Vegetales", Colors.green.shade400),
-                _buildCategoryBtn("Grocery", Colors.pink.shade300),
-                _buildCategoryBtn("Fruits", Colors.blue.shade300),
+                _buildCategoryBtn("Vegetales", const Color(0xFF8BC34A), "Shop Now"),
+                _buildCategoryBtn("Abarrotes", const Color(0xFFF06292), "Ver todo"),
+                _buildCategoryBtn("Frutas", const Color(0xFF4FC3F7), "Ofertas"),
               ],
             ),
 
             // 4. GRILLA DE PRODUCTOS
             const Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.fromLTRB(20, 30, 20, 15),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Productos Destacados", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text(
+                  "Productos Destacados", 
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
 
@@ -125,15 +158,14 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.7,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
               ),
               itemCount: 4,
               itemBuilder: (context, index) {
-                final names = ["Aceite", "Arroz", "Detergente", "Leche"];
+                final names = ["Aceite Aguacate", "Arroz Super", "Detergente Líquido", "Leche Entera"];
                 final prices = ["\$42.00", "\$24.50", "\$115.00", "\$26.00"];
-                // Usando imágenes de respaldo por si fallan
                 final images = [
                   "https://raw.githubusercontent.com/Antonio347Vania/im-genes-para-flutter-6toI-11-Feb-2026/refs/heads/main/Aceite%20Aguacate.jpg",
                   "https://raw.githubusercontent.com/Antonio347Vania/im-genes-para-flutter-6toI-11-Feb-2026/refs/heads/main/Arroz.jpg",
@@ -144,7 +176,7 @@ class HomePage extends StatelessWidget {
                 return _buildProductCard(names[index], prices[index], images[index]);
               },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
           ],
         ),
       ),
@@ -154,63 +186,63 @@ class HomePage extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(icon: Icon(Icons.apple), label: "Frutas"),
-          BottomNavigationBarItem(icon: Icon(Icons.local_grocery_store), label: "Súper"),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: "Súper"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Cuenta"),
         ],
       ),
     );
   }
 
-  // WIDGET PARA BOTONES DE CATEGORÍA
-  Widget _buildCategoryBtn(String label, Color color) {
+  Widget _buildCategoryBtn(String label, Color color, String actionText) {
     return Container(
-      width: 100,
+      width: 105,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
-          Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
-          const SizedBox(height: 5),
+          Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+          const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(5)),
-            child: const Text("Ver más", style: TextStyle(color: Colors.white, fontSize: 10)),
+            decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(5)),
+            child: Text(actionText, style: const TextStyle(color: Colors.white, fontSize: 10)),
           )
         ],
       ),
     );
   }
 
-  // WIDGET PARA TARJETA DE PRODUCTO
   Widget _buildProductCard(String name, String price, String img) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Colors.grey.shade200),
       ),
       child: Column(
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(12),
               child: Image.network(img, fit: BoxFit.contain),
             ),
           ),
-          Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-          Text(price, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
+          Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Text(price, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.w900, fontSize: 16)),
+          const SizedBox(height: 8),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
               color: Colors.orange,
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(9)),
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(14), bottomRight: Radius.circular(14)),
             ),
-            child: const Icon(Icons.add_shopping_cart, color: Colors.white, size: 20),
+            child: const Center(
+              child: Text("Agregar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
           )
         ],
       ),
